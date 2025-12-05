@@ -1,4 +1,15 @@
-const {exec} = require('child_process');
+/*
+import {exec} from 'child_process'
+import open from 'open';
+
+I could not get the open module to work no matter what I tried.
+It will execute but it will not open the browser, and nothing online
+or in the readme.md file for the open module seems to have a solution.
+
+I will use the child_process exec function until another wall is hit later on.
+*/
+
+const {exec } = require('child_process');
 
 // argument variables
 const args = process.argv.slice(2);
@@ -16,7 +27,7 @@ function displayUsage() {
 }
 
 // open function
-function open(favorite) {
+async function openFavorite(favorite) {
 
     // generate the url based on the input
     let url;
@@ -31,9 +42,9 @@ function open(favorite) {
         return;
     }
 
-    // platform independant command generation
+    
     let command;
-        switch (process.platform) {
+    switch (process.platform) {
         case 'darwin' :
             command = `open -a Google Chrome ${url}`;
             break;
@@ -47,7 +58,6 @@ function open(favorite) {
             console.log('Unsupported Platform');
     }
     
-    // execute the command
     exec(command, (error, stdout, stderr) => {
         if (error) {
             console.log('error:', error.message);
@@ -59,9 +69,10 @@ function open(favorite) {
             return;
         }
         console.log(stdout);
-    });
-
+    })
+    
     console.log('Opening', url);
+    // await open(url);
 }
 
 // add function
@@ -80,7 +91,7 @@ if (!command || !favorite || command === "help") {
 } else {
     switch (command) {
         case "open": 
-            open(favorite);
+            openFavorite(favorite);
             break;
         case "add":
             if (!url) {

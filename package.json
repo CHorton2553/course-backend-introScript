@@ -7,7 +7,10 @@
     "start": "node src/main.js"
   },
   "keywords": [],
-  "author": "cjh1295@gmail.com",
+  "author": "Casey",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "open": "^11.0.0"
+  }
 }
